@@ -5,4 +5,3 @@ cc -Werror -Wall -Wextra -g -D BUFFER_SIZE=42 get_next_line.c get_next_line_util
 ./a.out tests/t1.txt
 ### 누수체크
 valgrind --leak-check=full ./a.out test/t1.txt
-### Description에 주석 적어놓음
