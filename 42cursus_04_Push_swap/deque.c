@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_bottom.c                                      :+:      :+:    :+:   */
+/*   deque.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 15:00:57 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/03 15:01:56 by daeekim          ###   ########.fr       */
+/*   Created: 2024/07/08 14:33:41 by daeekim           #+#    #+#             */
+/*   Updated: 2024/07/08 14:51:59 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push_bottom(t_deque *list, int data)
+t_deque	*deque_init(void)
+{
+	t_deque	*deque;
+
+	deque = malloc(sizeof(t_deque));
+	if (deque == NULL)
+		return (0);
+	deque->top = NULL;
+	deque->bottom = NULL;
+	deque->size = 0;
+	return (deque);
+}
+
+t_node	*getnode(int data)
 {
 	t_node	*new;
-	t_node	*oldbottom;
 
-	new = getnode(data);
-	if (list->bottom == NULL)
-	{
-		list->top = new;
-		list->bottom = new;
-	}
-	else
-	{
-		oldbottom = list->bottom;
-		oldbottom->prev = new;
-		new->next = oldbottom;
-		list->bottom = new;
-	}
-	list->size++;
+	new = malloc(sizeof(t_node));
+	if (new == NULL)
+		return (0);
+	new->data = data;
+	new->next = NULL;
+	new->prev = NULL;
+	return (new);
 }

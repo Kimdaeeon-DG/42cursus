@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sb.c                                               :+:      :+:    :+:   */
+/*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 15:48:51 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/03 17:28:54 by daeekim          ###   ########.fr       */
+/*   Created: 2024/07/03 15:45:00 by daeekim           #+#    #+#             */
+/*   Updated: 2024/07/08 15:04:53 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sb(t_deque *b)
+void	pa(t_deque *a, t_deque *b)
 {
-	int	tmp;
-
-	if (b->size < 2)
+	if (b->size == 0)
 		return ;
-	tmp = a->top->data;
-	a->top->data = a->top->prev->data;
-	a->top->prev->data = tmp;
-	write(1, "sb\n", 3);
+	push_top(a, b->top->data);
+	pop_top(b);
+	write(1, "pa\n", 3);
+}
+
+void	pb(t_deque *a, t_deque *b)
+{
+	if (a->size == 0)
+		return ;
+	push_top(b, a->top->data);
+	pop_top(a);
+	write(1, "pb\n", 3);
 }

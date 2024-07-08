@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getnode.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 14:53:33 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/03 15:15:27 by daeekim          ###   ########.fr       */
+/*   Created: 2024/07/08 13:07:35 by daeekim           #+#    #+#             */
+/*   Updated: 2024/07/08 15:03:14 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap"
 
-t_node	*getnode(int data)
+int main(int ac, char **av)
 {
-	t_node	*new;
+	t_deque *deque_a;
+	t_deque *deque_b;
+	int		deque_size;
 
-	new = malloc(sizeof(t_node));
-	if (new == NULL)
+	if (argc < 2)
 		return (0);
-	new->data = data;
-	new->next = NULL;
-	new->prev = NULL;
-	return (new);
+	if (check_integers(av))
+		return (0);
+
+	deque_b = NULL;
+	deque_a = fill_deque(ac, av);
+	deque_size = get_deque_size(deque_size);
+	push_swap(&deque_a, &deque_b, deque_size);
+	free_deque(&deque_a);
+	free_deque(&deque_b);
+	return (0);
 }
