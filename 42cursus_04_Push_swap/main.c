@@ -12,22 +12,35 @@
 
 #include "push_swap"
 
-int main(int ac, char **av)
+void atob(t_deque *a, t_deque *b)
 {
-	t_deque *deque_a;
-	t_deque *deque_b;
-	int		deque_size;
+	check_sorted(a);
+	if (a->size >= 100)
+		division(a, b);
+	else if (a->size < 100 && a->size > 10)
+		division3(a, b);
+	while (a->size > 3)
+		pb(a, b);
+	handmade(a);
+	while (b->size)
+		btoa(a, b);
+	finish(a);
+	return ;
+}
 
-	if (argc < 2)
-		return (0);
-	if (check_integers(av))
-		return (0);
+int	main(int ac, char **av)
+{
+	t_deque	*a;
+	t_deque	*b;
 
-	deque_b = NULL;
-	deque_a = fill_deque(ac, av);
-	deque_size = get_deque_size(deque_size);
-	push_swap(&deque_a, &deque_b, deque_size);
-	free_deque(&deque_a);
-	free_deque(&deque_b);
+	if (ac < 2)
+		return (0);
+	a = deque_init();
+	b = deque_init();
+	check_argument(ac, av);
+	check_string(ac, av);
+	check_same(a);
+	free_deque(a);
+	free_deque(b);
 	return (0);
 }
