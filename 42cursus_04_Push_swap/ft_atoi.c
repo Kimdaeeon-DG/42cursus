@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push.c                                             :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 15:45:00 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/08 15:04:53 by daeekim          ###   ########.fr       */
+/*   Created: 2024/02/28 17:54:15 by daeekim           #+#    #+#             */
+/*   Updated: 2024/07/15 20:23:47 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-void	pa(t_deque *a, t_deque *b)
+int	ft_atoi(const char *str)
 {
-	if (b->size == 0)
-		return ;
-	push_top(a, b->top->data);
-	pop_top(b);
-	write(1, "pa\n", 3);
-}
+	int	t;
+	int	sign;
+	int	result;
 
-void	pb(t_deque *a, t_deque *b)
-{
-	if (a->size == 0)
-		return ;
-	push_top(b, a->top->data);
-	pop_top(a);
-	write(1, "pb\n", 3);
+	t = 0;
+	sign = 1;
+	result = 0;
+	while ((str[t] >= 9 && str[t] <= 13) || str[t] == 32)
+		t++;
+	if (str[t] == '-' || str[t] == '+')
+	{
+		if (str[t] == '-')
+			sign *= -1;
+		t++;
+	}
+	while (str[t] >= '0' && str[t] <= '9')
+	{
+		result *= 10;
+		result += str[t] - '0';
+		t++;
+	}
+	return (result * sign);
 }

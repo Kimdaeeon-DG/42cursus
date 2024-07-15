@@ -6,41 +6,70 @@
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:07:35 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/08 15:03:14 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/07/15 23:20:10 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <stdio.h>
+#include "push_swap.h"
 
-#include "push_swap"
-
-void atob(t_deque *a, t_deque *b)
+void print_error(int type)
 {
-	check_sorted(a);
-	if (a->size >= 100)
-		division(a, b);
-	else if (a->size < 100 && a->size > 10)
-		division3(a, b);
-	while (a->size > 3)
-		pb(a, b);
-	handmade(a);
-	while (b->size)
-		btoa(a, b);
-	finish(a);
-	return ;
+	if (type >= 1)
+		write(2, "Error\n", 6);
+	exit(1);
 }
 
+void print_node(t_deque *a)
+{
+	t_node *pnt = a->top;
+	
+	while (pnt != NULL)
+	{
+		printf("%d\n", pnt->data);
+		pnt = pnt->prev;
+	}
+}
+
+/*
+int check_argument(int ac, char **av)
+{
+	int	i;
+
+	i = 0;
+	while (i < ac - 2)
+	{
+		if (!isdigit(av[i]) && !isalpha(av[i])) 
+	}
+}
+*/
+
+void insert_value(char **av, t_deque *a)
+{
+	int		i;
+	char	**arr;
+
+	i = 0;
+	arr = ft_split(av[1], ' ');
+	while (arr[i])
+		push_top(a, ft_atoi(arr[i++]));
+}
+
+#include <stdlib.h>
+	
 int	main(int ac, char **av)
 {
 	t_deque	*a;
-	t_deque	*b;
 
 	if (ac < 2)
 		return (0);
 	a = deque_init();
-	b = deque_init();
-	check_argument(ac, av);
-	check_string(ac, av);
-	check_same(a);
-	free_deque(a);
-	free_deque(b);
+	insert_value(av, a);
+	print_node(a);
+
+//	check_argument(ac, av);
+//check_string(ac, av);
+//check_same(a);
+//free_deque(a);
+//free_deque(b);
 	return (0);
 }

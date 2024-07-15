@@ -1,43 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rr.c                                               :+:      :+:    :+:   */
+/*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 15:45:35 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/03 17:27:53 by daeekim          ###   ########.fr       */
+/*   Created: 2024/07/03 15:45:00 by daeekim           #+#    #+#             */
+/*   Updated: 2024/07/15 18:36:36 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ra(t_deque *a)
+void	pa(t_deque *a, t_deque *b)
 {
-	if (a->size < 2)
+	if (b->size == 0)
 		return ;
-	push_bottom(a, a->top->data);
-	pop_top(a);
-	write(1, "ra\n", 3);
+	push_top(a, b->top->data);
+	pop_top(b);
+	write(1, "pa\n", 3);
 }
 
-void	rb(t_deque *b)
+void	pb(t_deque *a, t_deque *b)
 {
-	if (b->size < 2)
+	if (a->size == 0)
 		return ;
-	push_bottom(b, b->top->data);
-	pop_top(b);
-	write(1, "rb\n", 3);
-}
-
-
-void	rr(t_deque *a, t_deque *b)
-{
-	if (a->size < 2 || b->size < 2)
-		return ;
-	push_bottom(a, a->top->data);
+	push_top(b, a->top->data);
 	pop_top(a);
-	push_bottom(b, b->top->data);
-	pop_top(b);
-	write(1, "rr\n", 3);
+	write(1, "pb\n", 3);
 }

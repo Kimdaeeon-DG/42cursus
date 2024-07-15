@@ -6,13 +6,13 @@
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:33:41 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/08 14:51:59 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/07/10 15:53:56 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_deque	*deque_init(void)
+t_deque	*deque_init()
 {
 	t_deque	*deque;
 

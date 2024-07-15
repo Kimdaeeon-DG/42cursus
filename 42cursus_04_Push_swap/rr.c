@@ -1,52 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ss.c                                               :+:      :+:    :+:   */
+/*   rr.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 16:35:22 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/03 17:29:37 by daeekim          ###   ########.fr       */
+/*   Created: 2024/07/03 15:45:35 by daeekim           #+#    #+#             */
+/*   Updated: 2024/07/10 14:17:20 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sa(t_deque *a)
+void	ra(t_deque *a)
 {
-	int	tmp;
-
 	if (a->size < 2)
 		return ;
-	tmp = a->top->data;
-	a->top->data = a->top->prev->data;
-	a->top->prev->data = tmp;
-	write(1, "sa\n", 3);
+	push_bottom(a, a->top->data);
+	pop_top(a);
+	write(1, "ra\n", 3);
 }
 
-void	sb(t_deque *b)
+void	rb(t_deque *b)
 {
-	int	tmp;
-
 	if (b->size < 2)
 		return ;
-	tmp = a->top->data;
-	a->top->data = a->top->prev->data;
-	a->top->prev->data = tmp;
-	write(1, "sb\n", 3);
+	push_bottom(b, b->top->data);
+	pop_top(b);
+	write(1, "rb\n", 3);
 }
 
-void	ss(t_deque *a, t_deque *b)
+void	rr(t_deque *a, t_deque *b)
 {
-	int	tmp;
-
 	if (a->size < 2 || b->size < 2)
 		return ;
-	tmp = a->top->data;
-	a->top->data = a->top->prev->data;
-	a->top->prev->data = tmp;
-	tmp = b->top->data;
-	b->top->data = b->top->prev->data;
-	b->top->prev->data = tmp;
-	write(1, "ss\n", 3);
+	push_bottom(a, a->top->data);
+	pop_top(a);
+	push_bottom(b, b->top->data);
+	pop_top(b);
+	write(1, "rr\n", 3);
 }

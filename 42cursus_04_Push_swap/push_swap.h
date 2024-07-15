@@ -6,13 +6,14 @@
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:50:34 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/03 17:24:19 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/07/15 23:19:51 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 # include <unistd.h>
+# include <stdlib.h>
 
 typedef struct s_node
 {
@@ -45,3 +46,6 @@ void	rr(t_deque *a, t_deque *b);
 void	rra(t_deque *a);
 void	rrb(t_deque *b);
 void	rrr(t_deque *a, t_deque *b);
+char	**ft_split(char const *s, char c);
+int		ft_atoi(const char *str);
+#endif
