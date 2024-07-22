@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 17:58:51 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/16 16:17:27 by daeekim          ###   ########.fr       */
+/*   Created: 2024/02/28 17:59:47 by daeekim           #+#    #+#             */
+/*   Updated: 2024/07/22 10:41:42 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
-int	ft_isdigit(char *c)
+size_t	ft_strlen(const char *c)
 {
-	if (*c == '-')
-		c++;
-	return (*c >= '0' && *c <= '9');
+	int	i;
+
+	i = 0;
+	while (c[i])
+		i++;
+	return (i);
 }

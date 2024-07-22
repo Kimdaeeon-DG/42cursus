@@ -6,11 +6,11 @@
 /*   By: daeekim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 20:28:16 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/15 23:15:52 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/07/22 10:41:37 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
 static size_t	ft_count(char const *s, char c)
 {

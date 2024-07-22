@@ -6,7 +6,7 @@
 #    By: daeekim <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 16:12:42 by daeekim           #+#    #+#              #
-#    Updated: 2024/07/16 14:15:29 by daeekim          ###   ########.fr        #
+#    Updated: 2024/07/22 15:06:57 by daeekim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ RM = rm -f
 
 AR = ar
 
-SRCS = deque.c main.c push_pop.c push.c rr.c rrr.c ss.c ft_split.c ft_atoi.c ft_isdigit.c ft_strlen.c
+SRCS = deque.c main.c push_pop.c\
+	util/push.c util/rotate.c util/r_rotate.c util/swap.c util/value.c\
+	libft/ft_split.c libft/ft_atoi.c libft/ft_isdigit.c libft/ft_strlen.c\
 
 OBJS = $(SRCS:.c=.o)
 

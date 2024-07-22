@@ -1,37 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 17:54:15 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/15 20:23:47 by daeekim          ###   ########.fr       */
+/*   Created: 2024/02/28 17:58:51 by daeekim           #+#    #+#             */
+/*   Updated: 2024/07/22 14:17:06 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *str)
-{
-	int	t;
-	int	sign;
-	int	result;
+#include "../push_swap.h"
 
-	t = 0;
-	sign = 1;
-	result = 0;
-	while ((str[t] >= 9 && str[t] <= 13) || str[t] == 32)
-		t++;
-	if (str[t] == '-' || str[t] == '+')
-	{
-		if (str[t] == '-')
-			sign *= -1;
-		t++;
-	}
-	while (str[t] >= '0' && str[t] <= '9')
-	{
-		result *= 10;
-		result += str[t] - '0';
-		t++;
-	}
-	return (result * sign);
+void	ft_isdigit(char *c)
+{
+	if (*c == '-')
+		c++;
+	if (!(*c >= '0' && *c <= '9'))
+		print_error(1);
 }

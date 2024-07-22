@@ -6,11 +6,11 @@
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:45:00 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/15 18:36:36 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/07/22 10:40:00 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
 void	pa(t_deque *a, t_deque *b)
 {
