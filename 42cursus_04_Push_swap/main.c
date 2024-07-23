@@ -6,7 +6,7 @@
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:07:35 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/22 14:59:32 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/07/23 17:48:13 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -40,17 +40,45 @@ void free_deque(int ac, t_deque *a)
 	while (i++ < ac)
 		pop_bottom(a);
 }
+
+void	sort(t_deque *a, t_deque *b)
+{
+	int	i;
+	int	size; 
+	int temp;
+
+	i = 0;
+	size = a->size;
+	temp = a->top->data;
+	while (++i < size)
+	{
+		if (temp < a->top->data)
+			pb(a,b);
+		else
+			ra(a);
+	}
+}
 	
 int	main(int ac, char **av)
 {
 	t_deque	*a;
+	t_deque	*b;
 
 	if (ac < 2)
 		return (0);
 	a = deque_init(); // deque 생성
-	insert_value(ac, av, a); // 인자를 deque에 넣음
+	b = deque_init(); // deque 생성
+	insert_value(av, a); // 인자를 deque에 넣음
 	print_node(a);
+	printf("\n");
 
+	//sort(a, b);
+	ra(a);
+	ra(a);
+	printf("a:\n");
+	print_node(a);
+	printf("b:\n");
+	print_node(b);
 //free_deque(a);
 //free_deque(b);
 	return (0);
