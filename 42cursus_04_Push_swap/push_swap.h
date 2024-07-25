@@ -6,7 +6,7 @@
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:50:34 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/23 16:52:28 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/07/25 15:52:26 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ typedef struct s_deque
 }	t_deque;
 
 t_deque	*deque_init(void);
-t_node	*getnode(int data);
+t_node	*getnode(int data, int index);
 void	print_error(int type);
 void	sort(t_deque *a, t_deque *b);
-void	push_top(t_deque *list, int data);
+void	push_top(t_deque *list, int data, int index);
 void	pop_top(t_deque *list);
-void	push_bottom(t_deque *list, int data);
+void	push_bottom(t_deque *list, int data, int index);
 void	pop_bottom(t_deque *list);
 void	sa(t_deque *a);
 void	sb(t_deque *b);

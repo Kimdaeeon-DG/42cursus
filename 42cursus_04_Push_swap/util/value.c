@@ -6,13 +6,13 @@
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:57:11 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/23 17:58:01 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/07/25 15:50:06 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-int check_same_value(int value, t_deque *a) // 같은 값 확인
+int	check_same_value(int value, t_deque *a) // 같은 값 확인
 {
 	t_node	*n;
 
@@ -46,8 +46,10 @@ void	bubble_sort(int *str, t_deque *a) // data를 정렬함
 	int	i;
 	int	j;
 	int	temp;
+	int	checker;
 
 	i = -1;
+	checker = 0;
 	while (++i < a->size - 1) // 버블 정렬
 	{
 		j = -1;
@@ -58,9 +60,12 @@ void	bubble_sort(int *str, t_deque *a) // data를 정렬함
 				temp = str[j];
 				str[j] = str[j+1];
 				str[j+1] = temp;
+				checker++;
 			}
 		}
 	}
+	if (checker == 0)
+		print_error(-1);
 }
 
 void	indexing(int size, t_deque *a) // index를 넣는 함수
@@ -101,7 +106,7 @@ void insert_value(char **av, t_deque *a) // deque에data와 index를 넣는 함�
 		{ 
 			ft_isdigit(arr[j]); // 정수가 아니면 에러 출력
 			check_same_value(ft_atoi(arr[j]), a); // 같은 값이 있으면 에러 출력
-			push_bottom(a, ft_atoi(arr[j++])); // deque에 값을 넣음
+			push_bottom(a, ft_atoi(arr[j++]), 0); // deque에 값을 넣음
 		}
 	}
 	indexing(a->size, a); // index를 넣기 위해 indexing함수 호출

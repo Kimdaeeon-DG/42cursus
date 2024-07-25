@@ -6,16 +6,17 @@
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:07:35 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/23 17:48:13 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/07/25 15:58:24 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
 #include "push_swap.h"
 
-void print_error(int type) // 에러 출력 함수
+void	print_error(int type) // 에러 출력 함수
 {
 	if (type >= 1)
 		write(2, "Error\n", 6);
+	printf("되긴 되나");
 	exit(1);
 }
 
@@ -47,12 +48,12 @@ void	sort(t_deque *a, t_deque *b)
 	int	size; 
 	int temp;
 
-	i = 0;
+	i = -1;
 	size = a->size;
-	temp = a->top->data;
+	temp = a->top->index;
 	while (++i < size)
 	{
-		if (temp < a->top->data)
+		if (temp <= a->top->index)
 			pb(a,b);
 		else
 			ra(a);
@@ -72,9 +73,7 @@ int	main(int ac, char **av)
 	print_node(a);
 	printf("\n");
 
-	//sort(a, b);
-	ra(a);
-	ra(a);
+	sort(a, b);
 	printf("a:\n");
 	print_node(a);
 	printf("b:\n");
