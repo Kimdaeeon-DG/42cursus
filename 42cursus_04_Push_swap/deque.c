@@ -6,7 +6,7 @@
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:33:41 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/24 14:59:35 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/07/30 22:51:24 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_deque	*deque_init(void)
 	return (deque);
 }
 
-t_node	*getnode(int data, int index)
+t_node	*getnode(int data)
 {
 	t_node	*new;
 
@@ -33,7 +33,6 @@ t_node	*getnode(int data, int index)
 	if (new == NULL)
 		return (0);
 	new->data = data;
-	new->index = index;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);

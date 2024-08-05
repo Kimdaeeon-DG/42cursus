@@ -6,18 +6,18 @@
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:50:17 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/24 14:10:53 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/07/30 22:51:05 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push_bottom(t_deque *list, int data, int index)
+void	push_bottom(t_deque *list, int data)
 {
 	t_node	*new_node;
 	t_node	*cnt_bottom;
 
-	new_node = getnode(data, index);
+	new_node = getnode(data);
 	if (list->bottom == NULL)
 	{
 		list->top = new_node;
@@ -33,12 +33,12 @@ void	push_bottom(t_deque *list, int data, int index)
 	list->size++;
 }
 
-void	push_top(t_deque *list, int data, int index)
+void	push_top(t_deque *list, int data)
 {
 	t_node	*new_node;
 	t_node	*cnt_top;
 
-	new_node = getnode(data, index);
+	new_node = getnode(data);
 	if (list->top == NULL)
 	{
 		list->top = new_node;

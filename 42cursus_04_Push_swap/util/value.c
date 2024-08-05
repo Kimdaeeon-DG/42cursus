@@ -6,7 +6,7 @@
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 14:57:11 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/25 15:50:06 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/07/30 22:46:48 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void insert_index(int data, int index, t_deque *a) // 특정 노드를 찾아서
     {
         if (cnt->data == data)
 		{
-			cnt->index = index;
+			cnt->data = index;
             return ;
 		}
         cnt = cnt->next;
@@ -64,7 +64,7 @@ void	bubble_sort(int *str, t_deque *a) // data를 정렬함
 			}
 		}
 	}
-	if (checker == 0)
+	if (checker == 0) 
 		print_error(-1);
 }
 
@@ -78,10 +78,10 @@ void	indexing(int size, t_deque *a) // index를 넣는 함수
 	if (!str) // 예외처리
 		return;
 	node = a->bottom; // node를 바텀으로 설정
-	i = 0;
+	i = -1;
 	while (node != NULL) // deque에 담긴 값들을 str에 담아줌
 	{
-		str[i++] = node->data;
+		str[++i] = node->data;
 		node = node->next;
 	}
 	bubble_sort(str, a);
@@ -91,7 +91,7 @@ void	indexing(int size, t_deque *a) // index를 넣는 함수
 	free(str);
 }
 
-void insert_value(char **av, t_deque *a) // deque에data와 index를 넣는 함수
+void insert_value(char **av, t_deque *a) // deque에 data를 넣은 후 index 값으로 바꿔줌
 {
 	int		i;
 	int		j;
@@ -106,8 +106,8 @@ void insert_value(char **av, t_deque *a) // deque에data와 index를 넣는 함�
 		{ 
 			ft_isdigit(arr[j]); // 정수가 아니면 에러 출력
 			check_same_value(ft_atoi(arr[j]), a); // 같은 값이 있으면 에러 출력
-			push_bottom(a, ft_atoi(arr[j++]), 0); // deque에 값을 넣음
+			push_bottom(a, ft_atoi(arr[j++])); // deque에 값을 넣음
 		}
 	}
-	indexing(a->size, a); // index를 넣기 위해 indexing함수 호출
+	indexing(a->size, a); // index값으로 바꾸기 위해 indexing함수 호출
 }
