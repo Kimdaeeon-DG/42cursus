@@ -18,7 +18,6 @@
 typedef struct s_node
 {
 	int				data;
-	int				index;
 	struct s_node	*prev;
 	struct s_node	*next;
 }	t_node;
@@ -58,4 +57,14 @@ char	**ft_split(char const *s, char c);
 int		ft_atoi(const char *str);
 void	ft_isdigit(char *c);
 size_t	ft_strlen(const char *c);
+void	sort2(t_deque *a);
+void	sort3(t_deque *a);
+void	sort4(t_deque *a, t_deque *b, int size);
+void	sort5(t_deque *a, t_deque *b, int size);
+void	sort35(int size, t_deque *a, t_deque *b);
+void	max_push_b(t_node *node, t_deque *a, int size);
+void	max_push_a(t_node *node, t_deque *b, int size);
+void	sort_deque(t_deque *a, t_deque *b);
+void	sandglass(t_deque *a, t_deque *b, int chunk);
+void	algorithm(t_deque *a, t_deque *b, int size);
 #endif

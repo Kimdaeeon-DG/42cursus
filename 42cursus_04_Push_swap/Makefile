@@ -19,7 +19,7 @@ RM = rm -f
 
 AR = ar
 
-SRCS = deque.c main.c push_pop.c\
+SRCS = deque.c main.c push_pop.c sortings.c sandglass.c\
 	util/push.c util/rotate.c util/r_rotate.c util/swap.c util/value.c\
 	libft/ft_split.c libft/ft_atoi.c libft/ft_isdigit.c libft/ft_strlen.c\
 

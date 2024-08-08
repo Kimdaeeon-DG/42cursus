@@ -16,8 +16,8 @@ void	ra(t_deque *a)
 {
 	if (a->size < 2)
 		return ;
-	push_bottom(a, a->top->data);
-	pop_top(a);
+	push_top(a, a->bottom->data);
+	pop_bottom(a);
 	write(1, "ra\n", 3);
 }
 
@@ -25,8 +25,8 @@ void	rb(t_deque *b)
 {
 	if (b->size < 2)
 		return ;
-	push_bottom(b, b->top->data);
-	pop_top(b);
+	push_top(b, b->bottom->data);
+	pop_bottom(b);
 	write(1, "rb\n", 3);
 }
 
@@ -34,9 +34,9 @@ void	rr(t_deque *a, t_deque *b)
 {
 	if (a->size < 2 || b->size < 2)
 		return ;
-	push_bottom(a, a->top->data);
-	pop_top(a);
-	push_bottom(b, b->top->data);
-	pop_top(b);
+	push_top(a, a->bottom->data);
+	pop_bottom(a);
+	push_top(b, b->bottom->data);
+	pop_bottom(b);
 	write(1, "rr\n", 3);
 }

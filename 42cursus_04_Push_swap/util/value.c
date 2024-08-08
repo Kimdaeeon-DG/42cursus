@@ -87,7 +87,7 @@ void	indexing(int size, t_deque *a) // index를 넣는 함수
 	bubble_sort(str, a);
 	i = -1;
 	while (++i < a->size) // 정렬된 순서 바탕으로 인덱스를 넣음
-		insert_index(str[i], i + 1, a);
+		insert_index(str[i], i, a);
 	free(str);
 }
 
@@ -106,7 +106,7 @@ void insert_value(char **av, t_deque *a) // deque에 data를 넣은 후 index �
 		{ 
 			ft_isdigit(arr[j]); // 정수가 아니면 에러 출력
 			check_same_value(ft_atoi(arr[j]), a); // 같은 값이 있으면 에러 출력
-			push_bottom(a, ft_atoi(arr[j++])); // deque에 값을 넣음
+			push_top(a, ft_atoi(arr[j++])); // deque에 값을 넣음
 		}
 	}
 	indexing(a->size, a); // index값으로 바꾸기 위해 indexing함수 호출

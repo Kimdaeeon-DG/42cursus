@@ -18,9 +18,9 @@ void	sa(t_deque *a)
 
 	if (a->size < 2)
 		return ;
-	tmp = a->top->data;
-	a->top->data = a->top->prev->data;
-	a->top->prev->data = tmp;
+	tmp = a->bottom->data;
+	a->bottom->data = a->bottom->next->data;
+	a->bottom->next->data = tmp;
 	write(1, "sa\n", 3);
 }
 
@@ -30,9 +30,9 @@ void	sb(t_deque *b)
 
 	if (b->size < 2)
 		return ;
-	tmp = b->top->data;
-	b->top->data = b->top->prev->data;
-	b->top->prev->data = tmp;
+	tmp = b->bottom->data;
+	b->bottom->data = b->bottom->next->data;
+	b->bottom->next->data = tmp;
 	write(1, "sb\n", 3);
 }
 
@@ -42,11 +42,11 @@ void	ss(t_deque *a, t_deque *b)
 
 	if (a->size < 2 || b->size < 2)
 		return ;
-	tmp = a->top->data;
-	a->top->data = a->top->prev->data;
-	a->top->prev->data = tmp;
-	tmp = b->top->data;
-	b->top->data = b->top->prev->data;
-	b->top->prev->data = tmp;
+	tmp = a->bottom->data;
+	a->bottom->data = a->bottom->next->data;
+	a->bottom->next->data = tmp;
+	tmp = b->bottom->data;
+	b->bottom->data = b->bottom->next->data;
+	b->bottom->next->data = tmp;
 	write(1, "ss\n", 3);
 }

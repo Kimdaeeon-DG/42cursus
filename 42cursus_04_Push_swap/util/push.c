@@ -16,8 +16,8 @@ void	pa(t_deque *a, t_deque *b)
 {
 	if (b->size == 0)
 		return ;
-	push_top(a, b->top->data);
-	pop_top(b);
+	push_bottom(a, b->bottom->data);
+	pop_bottom(b);
 	write(1, "pa\n", 3);
 }
 
@@ -25,7 +25,7 @@ void	pb(t_deque *a, t_deque *b)
 {
 	if (a->size == 0)
 		return ;
-	push_top(b, a->top->data);
-	pop_top(a);
+	push_bottom(b, a->bottom->data);
+	pop_bottom(a);
 	write(1, "pb\n", 3);
 }

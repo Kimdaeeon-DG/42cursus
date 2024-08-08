@@ -16,7 +16,6 @@ void	print_error(int type) // 에러 출력 함수
 {
 	if (type >= 1)
 		write(2, "Error\n", 6);
-	printf("!!");
 	exit(1);
 }
 
@@ -24,12 +23,11 @@ void print_node(t_deque *a) // 값 확인용 출력 함수
 {
 	t_node	*pnt;
 
-	pnt = a->top;
+	pnt = a->bottom;
 	while (pnt != NULL)
 	{
 		printf("data: %d\n", pnt->data);
-		printf("index: %d\n", pnt->index);
-		pnt = pnt->prev;
+		pnt = pnt->next;
 	}
 }
 
@@ -50,60 +48,44 @@ void	sort(t_deque *a, t_deque *b)
 
 	i = -1;
 	size = a->size;
-	temp = a->top->index;
+	temp = a->top->data;
 	while (++i < size)
 	{
-		if (temp <= a->top->index)
+		if (temp <= a->top->data)
 			pb(a,b);
 		else
 			ra(a);
 	}
 }
-	
-void	atob(t_deque *a, t_deque *b, int n)
-{
-	int	a_size;
-	int pivot1;
-	int pivot2;
-
-	a_size = a->size;
-	pivot1 = n + a_size / 3;
-	pivot2 = n + a_size / 3 * 2;
-	if (a_size <= 5)
-		return ;
-	while (a_size--)
-	{
-		if (a->top->data <= pivot1)
-		{
-			pb(a, b);
-			rb(b);
-		}
-		else if (a->top->data <= pivot2)
-			pb(a, b);
-		else
-			ra(a);
-
-	}
-	atob(a, b, pivot2);
-}
-
-//void	sort_3(t_deque *a)
-
 
 int	main(int ac, char **av)
 {
 	t_deque	*a;
 	t_deque	*b;
+	int		size;
 
 	if (ac < 2)
 		return (0);
 	a = deque_init(); // deque 생성
 	b = deque_init(); // deque 생성
 	insert_value(av, a); // 인자를 deque에 넣음
-
-	atob(a, b, 0);
+	/*
+	pb(a, b);
+	sa(a);
 	print_node(a);
-//free_deque(a);
-//free_deque(b);
+	printf("b\n");
+	print_node(b);
+	*/
+	size = a->size;
+	if (size == 2)
+		sort2(a);
+	else if (size >= 3)
+	{
+		if (size >= 3 && size <= 5)
+			sort35(size, a, b);
+		else
+			algorithm(a, b, size);
+	}
+	//free_all(a, b);
 	return (0);
 }
