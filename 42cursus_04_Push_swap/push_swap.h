@@ -6,7 +6,7 @@
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:50:34 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/30 22:52:05 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/08/09 18:30:25 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	bubble_sort(int *str, t_deque*a);
 void	indexing(int size, t_deque *a);
 void	insert_value(char**av, t_deque *a);
 char	**ft_split(char const *s, char c);
-int		ft_atoi(const char *str);
-void	ft_isdigit(char *c);
+int		ft_atoi(const char *str, int *flag);
+int		ft_isdigit(char *c);
 size_t	ft_strlen(const char *c);
 void	sort2(t_deque *a);
 void	sort3(t_deque *a);
@@ -67,4 +67,8 @@ void	max_push_a(t_node *node, t_deque *b, int size);
 void	sort_deque(t_deque *a, t_deque *b);
 void	sandglass(t_deque *a, t_deque *b, int chunk);
 void	algorithm(t_deque *a, t_deque *b, int size);
+void	print_error(int type);
+void	free_and_error(t_deque *a, int type);
+void	free_matrix(char **matrix);
+void	free_all(t_deque *a, t_deque *b);
 #endif

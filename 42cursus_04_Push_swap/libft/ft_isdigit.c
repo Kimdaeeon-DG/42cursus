@@ -12,10 +12,11 @@
 
 #include "../push_swap.h"
 
-void	ft_isdigit(char *c)
+int	ft_isdigit(char *c)
 {
 	if (*c == '-')
 		c++;
 	if (!(*c >= '0' && *c <= '9'))
-		print_error(1);
+		return (1);
+	return (0);
 }

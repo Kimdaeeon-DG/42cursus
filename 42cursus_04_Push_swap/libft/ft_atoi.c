@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *str, int *flag)
 {
 	int			len_num;
 	int			sign;
@@ -35,7 +35,7 @@ int	ft_atoi(const char *str)
 	}
 	result = result * sign;
 	if (*str != '\0' || len_num > 10 \
-			|| result > 2147483646 || result < -2147483648)
-		print_error(1);
+			|| result > 2147483647 || result < -2147483648)
+			(*flag) = 1;
 	return ((int)result);
 }

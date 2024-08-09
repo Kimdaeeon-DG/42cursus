@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sandglass.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/09 16:50:31 by daeekim           #+#    #+#             */
+/*   Updated: 2024/08/09 16:50:33 by daeekim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	max_push_b(t_node *node, t_deque *a, int size)
@@ -42,7 +54,7 @@ void	max_push_a(t_node *node, t_deque *b, int size)
 			if (i > size - i - 1)
 			{
 				while (i++ != size)
-				rrb(b);
+					rrb(b);
 			}
 			else
 				while (i-- > 0)
