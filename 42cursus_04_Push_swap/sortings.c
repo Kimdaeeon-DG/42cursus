@@ -12,9 +12,10 @@
 
 #include "push_swap.h"
 
-void	sort2(t_deque *a)
+void	sort2(int *unordered, int *sorted)
 {
-	sa(a);
+	write(1, "sa\n", 3);
+	ft_free(unordered, sorted, 0);
 }
 
 void	sort3(t_deque *a)

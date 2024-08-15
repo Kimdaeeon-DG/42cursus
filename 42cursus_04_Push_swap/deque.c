@@ -6,24 +6,11 @@
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:33:41 by daeekim           #+#    #+#             */
-/*   Updated: 2024/07/30 22:51:24 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/08/13 19:51:17 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-t_deque	*deque_init(void)
-{
-	t_deque	*deque;
-
-	deque = malloc(sizeof(t_deque));
-	if (deque == NULL)
-		return (0);
-	deque->top = NULL;
-	deque->bottom = NULL;
-	deque->size = 0;
-	return (deque);
-}
 
 t_node	*getnode(int data)
 {
@@ -36,4 +23,56 @@ t_node	*getnode(int data)
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
+}
+
+void	init_deque(t_deque *b, int **sorted)
+{
+	b->bottom = NULL;
+	b->top = NULL;
+	b->size = 0;
+	*sorted = NULL;
+}
+
+int	find_index(int *arr, int data, int size)
+{
+	int	i;
+
+	i = -1;
+	while (++i < size)
+	{
+		if (arr[i] == data)
+			return (i);
+	}
+	return (0);
+}
+
+void	insert_index(int data, int index, t_deque *a)
+{
+	t_node	*cnt;
+
+	cnt = a->bottom;
+	while (cnt != NULL)
+	{
+		if (cnt->data == data)
+		{
+			cnt->data = index;
+			return ;
+		}
+		cnt = cnt->next;
+	}
+}
+
+void	make_deque_a(t_deque *deque, int *array, int *sorted, int size)
+{
+	int	i;
+
+	deque->top = NULL;
+	deque->bottom = NULL;
+	deque->size = 0;
+	i = -1;
+	while (++i < size)
+		push_top(deque, array[i]);
+	i = -1;
+	while (++i < size)
+		insert_index(sorted[i], i, deque);
 }

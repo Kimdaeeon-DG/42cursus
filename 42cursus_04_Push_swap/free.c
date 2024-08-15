@@ -6,18 +6,18 @@
 /*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:55:29 by daeekim           #+#    #+#             */
-/*   Updated: 2024/08/09 18:28:17 by daeekim          ###   ########.fr       */
+/*   Updated: 2024/08/14 18:44:09 by daeekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_error(int type)
+void	ft_free(int *array, int *sorted, int flag)
 {
-	if (type >= 1)
-		write(2, "Error\n", 6);
-	exit(1);
-}
+	free(array);
+	free(sorted);
+	print_error(flag);
+}	
 
 void	free_and_error(t_deque *a, int type)
 {
@@ -36,15 +36,15 @@ void	free_and_error(t_deque *a, int type)
 		print_error(type);
 }
 
-
-void	free_matrix(char **matrix)
+void	free_and_exit(char **matrix, int size, int flag)
 {
-	int size;
+	free_matrix(matrix, size);
+	print_error(flag);
+}
 
-	size = 0;
-	while (matrix[size])
-		size++;
-
+void	free_matrix(char **matrix, int size)
+{
+	--size;
 	while (size >= 0)
 	{
 		free(matrix[size]);
@@ -55,7 +55,7 @@ void	free_matrix(char **matrix)
 	matrix = NULL;
 }
 
-void	free_all(t_deque *a, t_deque *b)
+void	free_all(t_deque *a, t_deque *b, int *a1, int *a2)
 {
 	t_node	*temp;
 	int		i;
@@ -70,13 +70,13 @@ void	free_all(t_deque *a, t_deque *b)
 	if (b->bottom)
 	{
 		i = -1;
-		while (++i < b->size)
+		while (++i < a->size)
 		{
-			temp = b->bottom;
-			b->bottom= b->bottom->next;
+			temp = a->bottom;
+			a->bottom = a->bottom->next;
 			free(temp);
 		}
 	}
-	free(a);
-	free(b);
+	free(a1);
+	free(a2);
 }

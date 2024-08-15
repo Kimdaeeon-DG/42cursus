@@ -66,7 +66,7 @@ static char	*ft_strndup(const char *s, size_t n)
 	return (result);
 }
 
-static void	ft_free(char **str, size_t n)
+static void	ft_free_split(char **str, size_t n)
 {
 	size_t	i;
 
@@ -97,7 +97,7 @@ char	**ft_split(char const *s, char c)
 		result[i] = ft_strndup(s, ft_wordlen(s, c));
 		if (!result[i++])
 		{
-			ft_free(result, i);
+			ft_free_split(result, i);
 			return (NULL);
 		}
 		s += ft_wordlen(s, c);
