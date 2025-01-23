@@ -21,39 +21,41 @@
 # include <string.h>
 
 typedef struct s_philo	t_philo;
-typedef struct s_data	t_data;
 
-struct s_data
+typedef struct s_data
 {
 	int				num_of_philos;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				must_eat_count;
-	long long		start_time;
 	int				someone_died;
+	int				all_ate;
+	long long		start_time;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	death_mutex;
+	pthread_mutex_t	meal_check_mutex;
 	t_philo			*philos;
-};
+}	t_data;
 
-struct s_philo
+typedef struct s_philo
 {
 	int				id;
+	int				eat_count;
 	int				left_fork;
 	int				right_fork;
-	int				eat_count;
 	long long		last_meal_time;
-	pthread_t		thread;
 	pthread_mutex_t	meal_mutex;
+	pthread_t		thread;
 	t_data			*data;
-};
+}	t_philo;
 
 // init.c
 int			init_data(t_data *data, int argc, char **argv);
 int			init_mutex(t_data *data);
 int			init_philos(t_data *data);
+void		clean_program(t_data *data);
 
 // utils.c
 int			ft_atoi(const char *str);

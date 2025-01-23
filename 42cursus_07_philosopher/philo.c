@@ -12,26 +12,70 @@
 
 #include "philo.h"
 
-void	eating(t_philo *philo)
+static void	take_forks(t_philo *philo)
 {
-	t_data	*data;
+	t_data *data;
 
 	data = philo->data;
-	pthread_mutex_lock(&data->forks[philo->left_fork]);
-	print_status(data, philo->id, "has taken a fork");
-	pthread_mutex_lock(&data->forks[philo->right_fork]);
-	print_status(data, philo->id, "has taken a fork");
+	if (philo->id % 2)
+	{
+		pthread_mutex_lock(&data->forks[philo->left_fork]);
+		print_status(data, philo->id, "has taken a fork");
+		pthread_mutex_lock(&data->forks[philo->right_fork]);
+		print_status(data, philo->id, "has taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(&data->forks[philo->right_fork]);
+		print_status(data, philo->id, "has taken a fork");
+		pthread_mutex_lock(&data->forks[philo->left_fork]);
+		print_status(data, philo->id, "has taken a fork");
+	}
+}
+
+static void	put_down_forks(t_philo *philo)
+{
+	t_data *data;
+
+	data = philo->data;
+	if (philo->id % 2)
+	{
+		pthread_mutex_unlock(&data->forks[philo->right_fork]);
+		pthread_mutex_unlock(&data->forks[philo->left_fork]);
+	}
+	else
+	{
+		pthread_mutex_unlock(&data->forks[philo->left_fork]);
+		pthread_mutex_unlock(&data->forks[philo->right_fork]);
+	}
+}
+
+void	eating(t_philo *philo)
+{
+	t_data *data;
+
+	data = philo->data;
+	take_forks(philo);
 
 	pthread_mutex_lock(&philo->meal_mutex);
-	print_status(data, philo->id, "is eating");
 	philo->last_meal_time = get_time();
+	print_status(data, philo->id, "is eating");
 	pthread_mutex_unlock(&philo->meal_mutex);
 	
 	smart_sleep(data->time_to_eat, data);
 	philo->eat_count++;
 	
-	pthread_mutex_unlock(&data->forks[philo->right_fork]);
-	pthread_mutex_unlock(&data->forks[philo->left_fork]);
+	put_down_forks(philo);
+}
+
+static int	check_if_done(t_philo *philo)
+{
+	t_data *data;
+
+	data = philo->data;
+	if (data->must_eat_count != -1 && philo->eat_count >= data->must_eat_count)
+		return (1);
+	return (0);
 }
 
 void	*philosopher(void *arg)
@@ -42,29 +86,31 @@ void	*philosopher(void *arg)
 	philo = (t_philo *)arg;
 	data = philo->data;
 	
-	// 시작 시간 동기화를 위해 대기
-	while (get_time() < data->start_time)
-		usleep(100);
-		
 	pthread_mutex_lock(&philo->meal_mutex);
-	philo->last_meal_time = data->start_time;
+	philo->last_meal_time = get_time();
 	pthread_mutex_unlock(&philo->meal_mutex);
 	
-	// 짝수 번호 철학자는 약간 대기
+	if (data->num_of_philos == 1)
+	{
+		print_status(data, philo->id, "has taken a fork");
+		return (NULL);
+	}
+	
 	if (philo->id % 2 == 0)
-		smart_sleep(1, data);
+		usleep(data->time_to_eat * 0.9);
 
-	while (!check_philosopher_death(data, philo->id - 1))
+	while (!check_death(data))
 	{
 		eating(philo);
-		if (data->must_eat_count != -1 && 
-			philo->eat_count >= data->must_eat_count)
+		if (check_if_done(philo))
 			break;
+		
 		print_status(data, philo->id, "is sleeping");
 		smart_sleep(data->time_to_sleep, data);
+		
 		print_status(data, philo->id, "is thinking");
-		// 리소스 과다 사용 방지 및 교착 상태 방지를 위한 짧은 대기
-		usleep(500);
+		if (data->num_of_philos % 2)
+			usleep(500);
 	}
 	return (NULL);
 }

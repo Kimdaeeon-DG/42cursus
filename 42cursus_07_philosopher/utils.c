@@ -52,12 +52,14 @@ void	print_status(t_data *data, int id, char *status)
 void	smart_sleep(long long time, t_data *data)
 {
 	long long	start;
+	long long	elapsed;
 
 	start = get_time();
-	while (!data->someone_died)
+	while (!check_death(data))
 	{
-		if (get_time() - start >= time)
-			break ;
-		usleep(500);
+		elapsed = get_time() - start;
+		if (elapsed >= time)
+			break;
+		usleep(100);
 	}
 }
