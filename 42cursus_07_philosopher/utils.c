@@ -61,22 +61,3 @@ void	smart_sleep(long long time, t_data *data)
 		usleep(500);
 	}
 }
-
-int	check_death(t_data *data, int i)
-{
-	pthread_mutex_lock(&data->philos[i].meal_mutex);
-	if (get_time() - data->philos[i].last_meal_time > data->time_to_die)
-	{
-		pthread_mutex_lock(&data->death_mutex);
-		data->someone_died = 1;
-		pthread_mutex_unlock(&data->death_mutex);
-		pthread_mutex_lock(&data->print_mutex);
-		printf("%lld %d died\n",
-			get_time() - data->start_time, data->philos[i].id);
-		pthread_mutex_unlock(&data->print_mutex);
-		pthread_mutex_unlock(&data->philos[i].meal_mutex);
-		return (1);
-	}
-	pthread_mutex_unlock(&data->philos[i].meal_mutex);
-	return (0);
-}

@@ -60,13 +60,14 @@ int			ft_atoi(const char *str);
 long long	get_time(void);
 void		print_status(t_data *data, int id, char *status);
 void		smart_sleep(long long time, t_data *data);
-int			check_death(t_data *data, int i);
 
 // philo.c
 void		*philosopher(void *arg);
 void		eating(t_philo *philo);
 
 // monitor.c
+int			check_death(t_data *data);
+int			check_philosopher_death(t_data *data, int i);
 void		*death_monitor(void *arg);
 
 #endif
