@@ -3,86 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 20:23:22 by daeekim           #+#    #+#             */
-/*   Updated: 2024/12/23 20:23:24 by daeekim          ###   ########.fr       */
+/*   Created: 2023/05/25 11:27:19 by wcorrea-          #+#    #+#             */
+/*   Updated: 2023/05/29 00:31:47 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	clean_program(t_data *data)
+int	turn_philosophers_in_threads(t_table *table)
 {
 	int	i;
 
-	if (data->forks)
-	{
-		i = -1;
-		while (++i < data->num_of_philos)
-			pthread_mutex_destroy(&data->forks[i]);
-		free(data->forks);
-	}
-	if (data->philos)
-	{
-		i = -1;
-		while (++i < data->num_of_philos)
-			pthread_mutex_destroy(&data->philos[i].meal_mutex);
-		free(data->philos);
-	}
-	pthread_mutex_destroy(&data->print_mutex);
-	pthread_mutex_destroy(&data->death_mutex);
-}
-
-static int	create_threads(t_data *data)
-{
-	int			i;
-	pthread_t	monitor;
-
-	data->start_time = get_time();
 	i = -1;
-	while (++i < data->num_of_philos)
+	while (++i < table->philosophers)
 	{
-		if (pthread_create(&data->philos[i].thread, NULL,
-			philosopher, &data->philos[i]))
-			return (1);
+		if (pthread_create(&table->philo[i].thread, NULL, \
+			start_dinner, &table->philo[i]))
+			exit_error("Couldn't create thread", table, 3);
 	}
-	if (pthread_create(&monitor, NULL, death_monitor, data))
-		return (1);
-	i = -1;
-	while (++i < data->num_of_philos)
-		pthread_join(data->philos[i].thread, NULL);
-	pthread_join(monitor, NULL);
 	return (0);
 }
 
-int	main(int argc, char **argv)
+void	start_padlocks(t_table *table)
 {
-	t_data	data;
+	int	i;
 
-	if (argc != 5 && argc != 6)
+	i = -1;
+	while (++i < table->philosophers)
 	{
-		printf("Error: wrong number of arguments\n");
-		return (1);
+		if (pthread_mutex_init(&table->fork_padlock[i], NULL))
+			exit_error("Couldn't init forks mutex", table, 2);
 	}
-	memset(&data, 0, sizeof(t_data));
-	if (init_data(&data, argc, argv))
+	if (pthread_mutex_init(&table->print_padlock, NULL))
+		exit_error("Couldn't init print mutex", table, 2);
+	if (pthread_mutex_init(&table->eat_padlock, NULL))
+		exit_error("Couldn't init eat mutex", table, 2);
+	if (pthread_mutex_init(&table->finish_padlock, NULL))
+		exit_error("Couldn't init finish mutex", table, 2);
+}
+
+void	call_philosophers(t_table *table)
+{
+	int	i;
+
+	i = -1;
+	table->philo = malloc(sizeof(t_philo) * table->philosophers);
+	table->fork_padlock = malloc(sizeof(pthread_mutex_t) * table->philosophers);
+	if (!table->philo || !table->fork_padlock)
+		exit_error("Couldn't create the philosophers and forks", table, 1);
+	table->start_time = now();
+	while (++i < table->philosophers)
 	{
-		printf("Error: invalid arguments\n");
-		return (1);
+		table->philo[i].id = i + 1;
+		table->philo[i].l_fork = i;
+		table->philo[i].r_fork = (i + 1) % table->philosophers;
+		table->philo[i].eat_count = 0;
+		table->philo[i].last_eat = table->start_time;
+		table->philo[i].table = table;
 	}
-	if (init_mutex(&data) || init_philos(&data))
-	{
-		clean_program(&data);
-		printf("Error: initialization failed\n");
-		return (1);
-	}
-	if (create_threads(&data))
-	{
-		clean_program(&data);
-		printf("Error: thread creation failed\n");
-		return (1);
-	}
-	clean_program(&data);
-	return (0);
+}
+
+void	set_table(t_table *table, int ac, char **av)
+{
+	if (ac < 5 || ac > 6)
+		exit_error("Wrong number of arguments", NULL, 0);
+	table->philosophers = ft_atoi(av[1]);
+	table->time_to_die = ft_atoi(av[2]);
+	table->time_to_eat = ft_atoi(av[3]);
+	table->time_to_sleep = ft_atoi(av[4]);
+	if (ac == 6)
+		table->must_eat_times = ft_atoi(av[5]);
+	else
+		table->must_eat_times = -1;
+	if (table->philosophers < 1 || table->time_to_die < 1
+		|| table->time_to_eat < 1 || table->time_to_sleep < 1
+		|| (ac == 6 && table->must_eat_times < 1))
+		exit_error("Invalid arguments", NULL, 0);
+	table->finish_flag = 0;
+}
+
+int	main(int ac, char **av)
+{
+	t_table	table;
+
+	set_table(&table, ac, av);
+	call_philosophers(&table);
+	start_padlocks(&table);
+	turn_philosophers_in_threads(&table);
+	start_dinner_monitor(&table);
 }

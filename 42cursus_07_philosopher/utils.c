@@ -3,63 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+        */
+/*   By: wcorrea- <wcorrea-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 20:23:47 by daeekim           #+#    #+#             */
-/*   Updated: 2024/12/23 20:23:49 by daeekim          ###   ########.fr       */
+/*   Created: 2023/05/25 12:44:04 by wcorrea-          #+#    #+#             */
+/*   Updated: 2023/05/29 00:33:57 by wcorrea-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(const char *str)
+void	advance_time(t_philo *philo, long long stop)
 {
-	int	result;
-	int	sign;
+	long long	begin;
 
-	result = 0;
-	sign = 1;
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
-	if (*str == '-')
-		sign = -1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str >= '0' && *str <= '9')
-	{
-		result = result * 10 + (*str - '0');
-		str++;
-	}
-	return (sign * result);
-}
-
-long long	get_time(void)
-{
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
-
-void	print_status(t_data *data, int id, char *status)
-{
-	pthread_mutex_lock(&data->print_mutex);
-	if (!data->someone_died)
-		printf("%lld %d %s\n", get_time() - data->start_time, id, status);
-	pthread_mutex_unlock(&data->print_mutex);
-}
-
-void	smart_sleep(long long time, t_data *data)
-{
-	long long	start;
-	long long	elapsed;
-
-	start = get_time();
-	while (!check_death(data))
-	{
-		elapsed = get_time() - start;
-		if (elapsed >= time)
-			break;
+	begin = now();
+	while (!is_time_to_finish(philo, NO) && (now() - begin) < stop)
 		usleep(100);
+}
+
+void	print_action(t_philo *philo, const char *status)
+{
+	long long	time;
+
+	pthread_mutex_lock(&philo->table->print_padlock);
+	if (!is_time_to_finish(philo, NO))
+	{
+		time = now() - philo->table->start_time;
+		printf("%lld %d %s\n", time, philo->id, status);
 	}
+	pthread_mutex_unlock(&philo->table->print_padlock);
+	if (status[0] == 'f')
+		printf("%s\n", FINISH_MSG);
+}
+
+long long	now(void)
+{
+	struct timeval	timeval;
+
+	gettimeofday(&timeval, NULL);
+	return ((timeval.tv_sec * 1000) + (timeval.tv_usec / 1000));
+}
+
+void	exit_error(char *msg, t_table *table, int n)
+{
+	printf("Error: %s\n", msg);
+	if (n == 1)
+		clean_table(table);
+	if (n == 2)
+		destroy_padlocks(table);
+	if (n == 3)
+		finish_dinner(table);
+	exit(1);
+}
+
+int	ft_atoi(const char *s)
+{
+	int	r;
+	int	sg;
+
+	r = 0;
+	sg = 1;
+	if (*s == '+' || *s == '-')
+	{
+		if (*s == '-')
+			sg *= -1;
+		s++;
+	}
+	while (*s)
+	{
+		if (*s < '0' || *s > '9')
+			return (-1);
+		else if (*s >= '0' && *s <= '9')
+			r = (r * 10) + (*s - '0');
+		s++;
+	}
+	return (sg * r);
 }

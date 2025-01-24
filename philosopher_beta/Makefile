@@ -3,41 +3,40 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jupyo <marvin@42.fr>                       +#+  +:+       +#+         #
+#    By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/01/23 23:25:35 by jupyo             #+#    #+#              #
-#    Updated: 2025/01/23 23:28:28 by jupyo            ###   ########.fr        #
+#    Created: 2024/12/23 20:24:06 by daeekim           #+#    #+#              #
+#    Updated: 2024/12/23 20:24:08 by daeekim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	philo
+NAME = philo
 
-CFLAGS		=	-Wall -Wextra -Werror -I -g # -g3 -fsanitize=address
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -pthread
 
-FILE		=	main.c \
-				actions.c \
-				clean_exit.c \
-				utils.c
+SRCS = main.c \
+       utils.c \
+       init.c \
+       philo.c \
+       monitor.c
 
-
-OBJ_DIR		=	./obj
-OBJS		=	$(addprefix $(OBJ_DIR)/, $(patsubst %.c,%.o,$(FILE)))
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(OBJ_DIR)/%.o	:  %.c
-	@mkdir -p $(dir $@)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+
+%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME)			: $(OBJS)
-	cc $(CFLAGS) -o $@ $^ -lpthread
+clean:
+	rm -f $(OBJS)
 
-clean			:
-	rm -rf $(OBJ_DIR)
-
-fclean			: clean
+fclean: clean
 	rm -f $(NAME)
 
-re				: fclean all
+re: fclean all
 
-.PHONY: clean fclean all re
+.PHONY: all clean fclean re
