@@ -1,41 +1,55 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: daeekim <daeekim@student.42gyeongsan.      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/02/19 16:38:56 by daeekim           #+#    #+#              #
+#    Updated: 2025/02/20 09:35:55 by daeekim          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
 
+SRC = src/main.c \
+		src/environment.c \
+		src/input.c \
+		src/parse.c \
+		src/signals.c \
+		src/redirections.c src/heredoc.c \
+		src/tokens.c src/tokens_utils.c src/tokens_split.c \
+		src/commands_manager.c src/commands_execute.c src/commands_utils.c \
+		src/builtins_basic.c src/builtins_complex.c src/builtins_utils.c \
+		src/builtins_export_lists.c src/builtins_export_tmp.c \
+		src/utils.c src/utils_extra.c
+
+OBJS = ${SRC:.c=.o}
+
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
+CFLAGS = -g -Wall -Wextra -Werror
+INCLUDE = -I include
+MAKE = make -C
+LIBFT_PATH = libft
+LFLAGS = -L ${LIBFT_PATH} -lft -lreadline
 
-SRCS = src/main.c \
-       src/builtins/echo.c \
-       src/builtins/cd.c \
-       src/builtins/pwd.c \
-       src/builtins/export.c \
-       src/builtins/unset.c \
-       src/builtins/env.c \
-       src/builtins/exit.c \
-       src/parser/parser.c \
-       src/parser/tokenizer.c \
-       src/executor/executor.c \
-       src/signals/signals.c \
-       src/utils/env_utils.c \
-       src/utils/string_utils.c
+.c.o:
+		${CC} ${CFLAGS} ${INCLUDE} -c $< -o ${<:.c=.o}
 
-OBJS = $(SRCS:.c=.o)
+$(NAME): ${OBJS}
+		${MAKE} ${LIBFT_PATH}
+		${CC} ${CFLAGS} ${INCLUDE} ${OBJS} ${LFLAGS} -o ${NAME}
 
-INCLUDES = -I./includes
-
-all: $(NAME)
-
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lreadline
-
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+all:	${NAME}
 
 clean:
-	$(RM) $(OBJS)
+		${MAKE} ${LIBFT_PATH} clean
+		${RM} ${OBJS}
 
 fclean: clean
-	$(RM) $(NAME)
+		${MAKE} ${LIBFT_PATH} fclean
+		${RM} ${NAME}
 
 re: fclean all
 
